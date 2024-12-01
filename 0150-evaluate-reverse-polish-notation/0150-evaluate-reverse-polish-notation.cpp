@@ -5,30 +5,26 @@ class Solution {
 public:
     int evalRPN(vector<string>& tokens) {
         stack<long long> st;
-        for (const string& token : tokens) {
-            if (isdigit(token.back()) || (token.size() > 1 && token[0] == '-')) {
-                st.push(stoi(token));
-            } else {
-                
+        // lambda 
+        unordered_map<string , function<int (int , int) >> mp =
+        {
+            {"+" , [](int a , int b) {return a+b ;}},
+            {"-" , [](int a , int b) {return a-b ;}},
+            {"*" , [](int a , int b) {return (long)a*(long)b ;}},
+            {"/" , [](int a , int b) {return a/b ;}}
+        };
+        for ( string& token : tokens) {
+            if(token =="+" || token =="-" || token =="*" || token =="/"){
                 long long op1 = st.top();
                 st.pop();
                 long long op2 = st.top(); 
                 st.pop();
-                if (token == "+") 
-                {
-                    st.push(op2 + op1);
-                } 
-                else if (token == "-") 
-                {
-                    st.push(op2 - op1);
-                } 
-                else if (token == "*")
-                {
-                    st.push(op2 * op1);
-                }
-                 else if (token == "/") {
-                    st.push(op2 / op1);
-                }
+        
+                int result = mp[token](op2,op1);
+                st.push(result);
+            }
+            else {
+                 st.push(stoi(token));
             }
         }
         return st.top(); // The result is the last element on the stack
