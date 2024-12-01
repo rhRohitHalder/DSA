@@ -7,8 +7,7 @@ public:
         stack<long long> st;
         for (const string& token : tokens) {
             if (isdigit(token.back()) || (token.size() > 1 && token[0] == '-')) {
-                
-                st.push(stoll(token));
+                st.push(stoi(token));
             } else {
                 
                 long long op1 = st.top();
