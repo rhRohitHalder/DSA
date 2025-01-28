@@ -16,27 +16,45 @@ public:
 
 class Solution {
 public:
-    Node* copyRandomList(Node* head) {
-        if(head == NULL) return NULL;
-        unordered_map<Node*, Node*> mp;
+    void connect(Node* head){
+       // if(head == NULL) return NULL;
         Node* temp = head;
-        //Node* newHead = new Node(head->val);
-        //mp[head] = newHead;
-
         while(temp != NULL){
-            Node* newNode = new Node(temp->val);
-            mp[temp] = newNode;
-            temp = temp->next;
-           
-        }
-        temp = head;
-        while(temp != NULL){
-            Node* copy = mp[temp];
-            copy->next = mp[temp->next];
-            copy->random = mp[temp->random];
+            Node* nxtEle = temp->next;
+            Node* nN = new Node(temp->val);
+            temp->next = nN;
+            nN->next = nxtEle;
 
+            temp = nxtEle;
+        }
+    }
+    void cNNrndmP(Node* head){
+        if(head == NULL) return;
+        Node* temp = head;
+        while(temp != NULL){
+            if(temp->random) temp->next->random = temp->random->next;
+            else temp->next->random = NULL;
+
+            temp = temp->next->next;
+        }
+    }
+    Node* cNNall(Node* head){
+        if(head == NULL) return NULL;
+        Node* temp = head;
+        Node* dummy =  new Node(-1);
+        Node* res = dummy;
+        while(temp != NULL){
+            res->next = temp->next;
+            temp->next = temp->next->next;
+
+            res = res->next;
             temp = temp->next;
         }
-        return mp[head];
+        return dummy->next;
+    }
+    Node* copyRandomList(Node* head) {
+        connect(head);
+        cNNrndmP(head);
+        return cNNall(head);
     }
 };
