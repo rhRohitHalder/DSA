@@ -7,7 +7,7 @@ public:
         int l = 1 , r = n-2;
         int total = 0 ;
         while(l<=r){
-            if(Lmax < Rmax){
+            if(Lmax <= Rmax){
                 if(height[l] <= Lmax ){
                     total += (Lmax-height[l]);
                 }else{
