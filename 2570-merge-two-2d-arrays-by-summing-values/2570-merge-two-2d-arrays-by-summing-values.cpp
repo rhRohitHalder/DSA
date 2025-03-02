@@ -4,7 +4,8 @@ public:
         //int n = nums1[0].size(); // row size()
         int n = v.size(); // col size()
         int m = a.size();
-        unordered_map<int,int> mp;
+// BRUTE FORCE
+        map<int,int> mp;
         vector<vector<int>> res;
         for (int i = 0; i < v.size(); i++) {
             int id = v[i][0];
@@ -21,7 +22,9 @@ public:
             int val = it.second;
             res.push_back({key,val});
         }
-        sort(begin(res),end(res));
+        //sort(begin(res),end(res));
         return res;
+// OPTIMAL 
+
     }
 };
